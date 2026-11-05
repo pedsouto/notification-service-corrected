@@ -28,6 +28,7 @@ public record TaskDto(
         String userEmail,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
         LocalDateTime updatedAt,
+        @NotNull(message = "O status da notificação é obrigatório")
         NotificationStatus notificationStatus
 ) {
 }
