@@ -42,9 +42,16 @@
         <h1>Task Notification</h1>
     </div>
     <div class="content">
-        <p>Notice: Your task <span class="important" th:text="${taskTitle}">Task Title</span> is scheduled for today at <span class="important" th:text="${eventDate}">Time</span>.</p>
+        <p>
+            Notice: Your task
+            <span class="important" th:text="${taskTitle}">Task Title</span>
+            is scheduled for
+            <span class="important" th:text="${eventDate}">Event date</span>.
+        </p>
         <p>Check the description below:</p>
-        <p th:text="${description}">Task Description</p>
+        <p th:if="${description != null and !#strings.isEmpty(description)}" th:text="${description}">Task Description</p>
+        <p th:if="${description == null or #strings.isEmpty(description)}">No description was provided for this task.</p>
+        <small th:text="'Task ID: ' + ${taskId}">Task ID</small>
     </div>
     <div class="footer">
         <p>Thank you for using our task management system.</p>
