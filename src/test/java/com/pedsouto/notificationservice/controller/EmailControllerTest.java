@@ -76,6 +76,17 @@ class EmailControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    void shouldRejectAlreadyProcessedNotification() throws Exception {
+        String payload = validPayload().replace("\"PENDING\"", "\"NOTIFIED\"");
+
+        mockMvc.perform(post("/email")
+                        .header("Authorization", "Bearer valid-token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payload))
+                .andExpect(status().isConflict());
+    }
+
     private String validPayload() {
         return """
                 {
