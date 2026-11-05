@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(EmailController.class)
+@WebMvcTest(value = EmailController.class, properties = "notification.internal-api-key=test-internal-key")
 @Import({com.pedsouto.notificationservice.infra.security.SecurityConfig.class, GlobalExceptionHandler.class})
 class EmailControllerTest {
 
@@ -38,8 +38,19 @@ class EmailControllerTest {
     }
 
     @Test
+    void shouldRejectRequestWithoutInternalKey() throws Exception {
+        mockMvc.perform(post("/email")
+                        .header("X-Internal-Service-Key", "test-internal-key")
+                        .header("Authorization", "Bearer valid-token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(validPayload()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     void shouldRejectRequestWithoutJwt() throws Exception {
         mockMvc.perform(post("/email")
+                        .header("X-Internal-Service-Key", "test-internal-key")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validPayload()))
                 .andExpect(status().isUnauthorized());
