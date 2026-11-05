@@ -27,7 +27,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        if ("/email".equals(request.getServletPath()) && !hasValidInternalKey(request)) {
+        if (request.getRequestURI().endsWith("/email") && !hasValidInternalKey(request)) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Acesso restrito à comunicação entre serviços");
             return;
         }
