@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: notification-service
+
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:your_email@gmail.com}
+    password: ${MAIL_PASSWORD:your_app_password}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  thymeleaf:
+    enabled: true
+
+email:
+  send:
+    sender-email: ${spring.mail.username}
+    sender-name: ${MAIL_SENDER_NAME:Task Scheduler}
+
+server:
+  port: ${SERVER_PORT:8082}
