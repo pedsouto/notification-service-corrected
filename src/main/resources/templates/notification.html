@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .header {
+            text-align: center;
+            color: #333;
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            color: #555;
+        }
+        .important {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Task Notification</h1>
+    </div>
+    <div class="content">
+        <p>Notice: Your task <span class="important" th:text="${taskTitle}">Task Title</span> is scheduled for today at <span class="important" th:text="${eventDate}">Time</span>.</p>
+        <p>Check the description below:</p>
+        <p th:text="${description}">Task Description</p>
+    </div>
+    <div class="footer">
+        <p>Thank you for using our task management system.</p>
+    </div>
+</div>
+</body>
+</html>
