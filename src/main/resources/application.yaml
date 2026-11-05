@@ -3,10 +3,10 @@ spring:
     name: notification-service
 
   mail:
-    host: ${MAIL_HOST:smtp.gmail.com}
+    host: ${MAIL_HOST}
     port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME:your_email@gmail.com}
-    password: ${MAIL_PASSWORD:your_app_password}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     protocol: smtp
     properties:
       mail:
@@ -14,14 +14,24 @@ spring:
           auth: true
           starttls:
             enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
 
   thymeleaf:
     enabled: true
 
 email:
   send:
-    sender-email: ${spring.mail.username}
+    sender-email: ${MAIL_SENDER_EMAIL:${MAIL_USERNAME}}
     sender-name: ${MAIL_SENDER_NAME:Task Scheduler}
+
+jwt:
+  secret: ${JWT_SECRET}
 
 server:
   port: ${SERVER_PORT:8082}
+
+notification:
+  internal-api-key: ${NOTIFICATION_API_KEY}
