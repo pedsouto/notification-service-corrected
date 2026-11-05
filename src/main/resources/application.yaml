@@ -32,3 +32,6 @@ jwt:
 
 server:
   port: ${SERVER_PORT:8082}
+
+notification:
+  internal-api-key: ${NOTIFICATION_API_KEY}
