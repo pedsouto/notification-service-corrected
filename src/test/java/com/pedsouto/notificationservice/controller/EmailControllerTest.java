@@ -40,7 +40,6 @@ class EmailControllerTest {
     @Test
     void shouldRejectRequestWithoutInternalKey() throws Exception {
         mockMvc.perform(post("/email")
-                        .header("X-Internal-Service-Key", "test-internal-key")
                         .header("Authorization", "Bearer valid-token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validPayload()))
@@ -59,6 +58,7 @@ class EmailControllerTest {
     @Test
     void shouldSendEmailForAuthenticatedOwner() throws Exception {
         mockMvc.perform(post("/email")
+                        .header("X-Internal-Service-Key", "test-internal-key")
                         .header("Authorization", "Bearer valid-token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(validPayload()))
@@ -72,6 +72,7 @@ class EmailControllerTest {
         String payload = validPayload().replace("user@example.com", "other@example.com");
 
         mockMvc.perform(post("/email")
+                        .header("X-Internal-Service-Key", "test-internal-key")
                         .header("Authorization", "Bearer valid-token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payload))
@@ -81,6 +82,7 @@ class EmailControllerTest {
     @Test
     void shouldRejectInvalidPayload() throws Exception {
         mockMvc.perform(post("/email")
+                        .header("X-Internal-Service-Key", "test-internal-key")
                         .header("Authorization", "Bearer valid-token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"id\":\"\",\"title\":\"\",\"eventDate\":null,\"userEmail\":\"invalid\"}"))
@@ -92,6 +94,7 @@ class EmailControllerTest {
         String payload = validPayload().replace("\"PENDING\"", "\"NOTIFIED\"");
 
         mockMvc.perform(post("/email")
+                        .header("X-Internal-Service-Key", "test-internal-key")
                         .header("Authorization", "Bearer valid-token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payload))
